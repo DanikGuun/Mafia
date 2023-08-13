@@ -10,10 +10,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //биндинг кнопок
         val roleButton = findViewById<Button>(R.id.role_button)
-        roleButton.setOnClickListener { view -> onRolesButtonPressed() }
+        roleButton.setOnClickListener { onRolesButtonPressed() }
     }
-    fun onRolesButtonPressed(){
+    //переход на активити с ролями
+    private fun onRolesButtonPressed(){
         val intent = Intent(this, RolesActivity::class.java)
         startActivity(intent)
     }
