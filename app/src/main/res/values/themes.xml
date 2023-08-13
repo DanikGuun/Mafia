@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Mafia" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.Mafia" parent="Base.Theme.Mafia" />
+
+    <style name="ToolbarTextStyle" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">60dp</item>
+        <item name="fontFamily">@font/archive_regular</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_shape</item>
+        <item name="color">@color/button_red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/aero_matic_regular</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+</resources>
