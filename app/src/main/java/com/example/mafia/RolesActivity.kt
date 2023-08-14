@@ -33,18 +33,8 @@ class RolesActivity: AppCompatActivity() {
             roleLayout.setBackgroundResource(R.drawable.role_bar_shape)
             roleLayout.id = baseID + count
 
-            val mainConstraint = findViewById<ConstraintLayout>(R.id.role_constraint)
-            mainConstraint.addView(roleLayout, ViewGroup.LayoutParams(400, 200))
-
-            val constraintSet = ConstraintSet()
-            constraintSet.clone(mainConstraint)
-
-
-            if (count == 0)  constraintSet.connect(roleLayout.id, TOP, R.id.role_toolbar, BOTTOM, 40)
-            else constraintSet.connect(roleLayout.id, TOP, baseID+count-1, BOTTOM, 20)
-            constraintSet.connect(roleLayout.id, LEFT, mainConstraint.id, LEFT)
-            constraintSet.connect(roleLayout.id, RIGHT, mainConstraint.id, RIGHT)
-            constraintSet.applyTo(mainConstraint)
+            val roleListViewLayout = findViewById<LinearLayout>(R.id.role_listview_linear)
+            roleListViewLayout.addView(roleLayout, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200))
 
             count++
         }
