@@ -1,8 +1,10 @@
 package com.example.mafia
 
+import android.app.ActionBar.LayoutParams
+import android.graphics.Typeface
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -10,16 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
-import androidx.constraintlayout.widget.ConstraintSet.HORIZONTAL
-import androidx.constraintlayout.widget.ConstraintSet.LEFT
-import androidx.constraintlayout.widget.ConstraintSet.RIGHT
-import androidx.constraintlayout.widget.ConstraintSet.TOP
 import com.example.mafia.roles.Roles
-import com.google.android.material.bottomappbar.BottomAppBar
 
 class RolesActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +28,33 @@ class RolesActivity: AppCompatActivity() {
             roleLayout.setBackgroundResource(R.drawable.role_bar_shape)
             roleLayout.id = baseID + count
             roleLayout.orientation = LinearLayout.HORIZONTAL
+            roleLayout.isClickable = true
+            roleLayout.setOnClickListener { click() }
+            roleLayout.stateListAnimator = Button(this).stateListAnimator
+
 
             val iconView = ImageView(this)
             iconView.setImageDrawable(getDrawable(role.icon))
+            iconView.layoutParams = ViewGroup.LayoutParams(180, 180)
             roleLayout.addView(iconView)
+
+
+            val roleName = TextView(this)
+            roleName.text = role.name
+            roleName.layoutParams = ViewGroup.LayoutParams(700, LayoutParams.MATCH_PARENT)
+            roleName.setTextAppearance(R.style.InfoRolesTextStyle)
+            roleName.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            roleName.setGravity(Gravity.CENTER_VERTICAL)
+            roleLayout.addView(roleName)
+
 
             val roleListViewLayout = findViewById<LinearLayout>(R.id.role_listview_linear)
             roleListViewLayout.addView(roleLayout, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200))
 
             count++
         }
+    }
+    fun click(){
+        Log.d("TAG", "click: 123123123")
     }
 }

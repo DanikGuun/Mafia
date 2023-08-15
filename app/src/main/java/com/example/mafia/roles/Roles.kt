@@ -8,7 +8,7 @@ object Roles {
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }
     class Peaceful: Role{
-        override val name = "Мирный житель"
+        override val name = "Мирный"
             get() = field
 
         override val description = "Цель - выжить и помочь раскрыть членов мафии"
