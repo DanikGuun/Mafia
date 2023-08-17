@@ -7,5 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 class GameSettingsActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.game_start_activity)
     }
 }

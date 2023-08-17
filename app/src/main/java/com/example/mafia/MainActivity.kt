@@ -11,12 +11,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //биндинг кнопок
-        val roleButton = findViewById<Button>(R.id.role_button)
-        roleButton.setOnClickListener { onRolesButtonPressed() }
+        findViewById<Button>(R.id.role_button).setOnClickListener { onRolesButtonPressed() }
+        findViewById<Button>(R.id.play_button).setOnClickListener {onPlayButtonPressed()}
     }
     //переход на активити с ролями
     private fun onRolesButtonPressed(){
         val intent = Intent(this, RolesActivity::class.java)
+        startActivity(intent)
+    }
+    private fun onPlayButtonPressed(){
+        val intent = Intent(this, GameSettingsActivity::class.java)
         startActivity(intent)
     }
 }

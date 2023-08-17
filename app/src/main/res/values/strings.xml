@@ -4,4 +4,6 @@
     <string name="play">играть</string>
     <string name="roles">роли</string>
     <string name="setting">настройка</string>
+    <string name="plus">+</string>
+    <string name="pinned_roles">роли:</string>
 </resources>
