@@ -11,7 +11,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 
 class RolesActivity: AppCompatActivity() {
@@ -29,7 +31,7 @@ class RolesActivity: AppCompatActivity() {
             roleLayout.id = baseID + count
             roleLayout.orientation = LinearLayout.HORIZONTAL
             roleLayout.isClickable = true
-            roleLayout.setOnClickListener { click() }
+            roleLayout.setOnClickListener { onClick(role) }
             roleLayout.stateListAnimator = Button(this).stateListAnimator
 
 
@@ -54,7 +56,13 @@ class RolesActivity: AppCompatActivity() {
             count++
         }
     }
-    fun click(){
-        Log.d("TAG", "click: 123123123")
+    fun onClick(role: Role){
+        val alertBuilder = AlertDialog.Builder(this)
+        val alert_layout = layoutInflater.inflate(R.layout.role_description_alert, null)
+        alertBuilder.setView(alert_layout)
+        alert_layout.findViewById<ImageView>(R.id.alert_role_icon).setImageResource(role.icon)
+        alert_layout.findViewById<TextView>(R.id.alert_role_name).text = role.name
+        alert_layout.findViewById<TextView>(R.id.alert_role_description).text = role.description
+        alertBuilder.create().show()
     }
 }

@@ -10,4 +10,5 @@
     <color name="background_gray_2">#969595</color>
     <color name="role_bar_gray_1">#CDCDCD</color>
     <color name="role_bar_gray_2">#C0C0C0</color>
+    <color name="alert_background">#8A4B4B4B</color>
 </resources>
