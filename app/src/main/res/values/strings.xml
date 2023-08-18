@@ -6,4 +6,7 @@
     <string name="setting">настройка</string>
     <string name="plus">+</string>
     <string name="pinned_roles">роли:</string>
+    <string name="enter_player_name">введите имя игрока</string>
+    <string name="accept">принять</string>
+    <string name="cancel">отмена</string>
 </resources>
