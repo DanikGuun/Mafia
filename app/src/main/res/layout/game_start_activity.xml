@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".GameSettingsActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/game_settings_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/activity_background_shape">
+    android:background="@drawable/activity_background_shape"
+    tools:context=".GameSettingsActivity">
+
+    <ScrollView
+        android:layout_width="408dp"
+        android:layout_height="640dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/game_settings_toolbar">
+
+        <LinearLayout
+            android:id="@+id/game_settings_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:divider="@drawable/roles_listview_divider_shape"
+            android:orientation="vertical"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:showDividers="middle">
+
+            <Button
+                android:id="@+id/player_add_button"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_shape"
+                android:text="@string/plus"
+                android:textAppearance="@style/ButtonStyle"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/aero_matic_regular"
+                android:text="@string/pinned_roles"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="60sp"
+                tools:text="@string/pinned_roles" />
+
+            <TextView
+                android:id="@+id/roles_count"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:fontFamily="@font/archive_regular"
+                android:text=" Выбрано 1/1"
+                android:textAlignment="center"
+                android:textColor="@color/roles_count_gray"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/game_settings_toolbar"
         android:layout_width="0dp"
         android:layout_height="77dp"
         android:background="@drawable/toolbar_shape"
@@ -26,51 +83,11 @@
         android:textAlignment="center"
         android:textAppearance="@style/ToolbarTextStyle"
         android:textSize="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/game_settings_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintStart_toStartOf="@+id/game_settings_toolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/player_add_button"
-        android:layout_width="272dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/button_shape"
-        android:text="@string/plus"
-        android:textAppearance="@style/ButtonStyle"
-        android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="218dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/aero_matic_regular"
-        android:text="@string/pinned_roles"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_add_button"
-        tools:text="@string/pinned_roles" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="179dp"
-        android:layout_height="42dp"
-        android:fontFamily="@font/archive_regular"
-        android:text=" Выбрано 1/1"
-        android:textAlignment="center"
-        android:textColor="@color/roles_count_gray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

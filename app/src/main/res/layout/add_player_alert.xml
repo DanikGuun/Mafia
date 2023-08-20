@@ -19,15 +19,15 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="396dp"
-        android:layout_height="52dp"
+        android:layout_width="362dp"
+        android:layout_height="49dp"
         android:gravity="center_vertical"
         android:text="@string/enter_player_name"
         android:textAlignment="center"
         android:textAppearance="@style/ToolbarTextStyle"
-        android:textSize="34dp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="@+id/toolbar3"
         app:layout_constraintTop_toTopOf="@+id/toolbar3" />
 
