@@ -25,13 +25,13 @@ class GameSettingsActivity: AppCompatActivity() {
         alertBuilder.setView(alertLayout)
         val alert = alertBuilder.create()
 
-        alertLayout.findViewById<Button>(R.id.accept_player)?.setOnClickListener {addPlayer(alert)}
+        alertLayout.findViewById<Button>(R.id.accept_player)?.setOnClickListener {acceptPlayer(alert)}
         alertLayout.findViewById<Button>(R.id.cancel_player)?.setOnClickListener {cancelPlayer(alert)}
         alert.show()
     }
-    private fun addPlayer(alert: AlertDialog){
+    private fun addPlayer(name: String){
         val mainLinear = findViewById<LinearLayout>(R.id.game_settings_linear_layout)
-        var playerName = alert.findViewById<EditText>(R.id.enter_player_name)?.text.toString()
+        var playerName = name
 
         //добавляем плашку для имени
         val playerNamePlank = LinearLayout(this)
@@ -57,8 +57,11 @@ class GameSettingsActivity: AppCompatActivity() {
         playerNameTextView.text = playerName
         players.add(playerName)
 
-        alert.cancel()
         namesCounter++
+    }
+    private fun acceptPlayer(alert: AlertDialog){
+        addPlayer(alert.findViewById<EditText>(R.id.enter_player_name)?.text.toString())
+        alert.cancel()
     }
     private fun cancelPlayer(alert: AlertDialog){
         alert.cancel()

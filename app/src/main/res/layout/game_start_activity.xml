@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:fontFamily="@font/archive_regular"
-                android:text=" Выбрано 1/1"
+                android:text=" Выбрано 0/0"
                 android:textAlignment="center"
                 android:textColor="@color/roles_count_gray"
                 android:textSize="16sp" />
