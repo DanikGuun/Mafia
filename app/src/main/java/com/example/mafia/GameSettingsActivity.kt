@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity
 
 class GameSettingsActivity: AppCompatActivity() {
     private var namesCounter = 0
+    private val players = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_start_activity)
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
     }
+
     private fun onAddPlayerButton(){
         val alertLayout = layoutInflater.inflate(R.layout.add_player_alert, null)
         val alertBuilder = AlertDialog.Builder(this)
@@ -29,7 +31,7 @@ class GameSettingsActivity: AppCompatActivity() {
     }
     private fun addPlayer(alert: AlertDialog){
         val mainLinear = findViewById<LinearLayout>(R.id.game_settings_linear_layout)
-        val playerName = alert.findViewById<EditText>(R.id.enter_player_name)?.text
+        var playerName = alert.findViewById<EditText>(R.id.enter_player_name)?.text.toString()
 
         //добавляем плашку для имени
         val playerNamePlank = LinearLayout(this)
@@ -38,11 +40,22 @@ class GameSettingsActivity: AppCompatActivity() {
 
         //добавляем само имя
         val playerNameTextView = TextView(this)
-        playerNameTextView.text = playerName
         playerNameTextView.setTextAppearance(R.style.PlayerNameText)
         playerNameTextView.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
         playerNameTextView.gravity = Gravity.CENTER_VERTICAL
         playerNamePlank.addView(playerNameTextView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 180))
+
+        //если имена повторяются, то добавляем циферку в конец
+        var notRepeatName = 1
+        if (playerName in players){
+            while (playerName+notRepeatName.toString() in players){
+                notRepeatName++
+            }
+            playerName += notRepeatName.toString()
+        }
+        
+        playerNameTextView.text = playerName
+        players.add(playerName)
 
         alert.cancel()
         namesCounter++
