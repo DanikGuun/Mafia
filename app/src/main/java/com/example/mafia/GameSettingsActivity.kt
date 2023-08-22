@@ -12,6 +12,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 class GameSettingsActivity: AppCompatActivity() {
     private var namesCounter = 0
+        get() = field
+        set(value) {
+            findViewById<TextView>(R.id.roles_count).text = "выбрано 0/${namesCounter}"
+            field = value
+        }
     private val players = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
