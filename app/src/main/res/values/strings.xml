@@ -9,4 +9,5 @@
     <string name="enter_player_name">введите имя игрока</string>
     <string name="accept">принять</string>
     <string name="cancel">отмена</string>
+    <string name="count">кол-во</string>
 </resources>

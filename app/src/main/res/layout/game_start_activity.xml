@@ -58,7 +58,7 @@
                 android:fontFamily="@font/archive_regular"
                 android:text=" Выбрано 0/0"
                 android:textAlignment="center"
-                android:textColor="@color/roles_count_gray"
+                android:textColor="@color/roles_picked_gray"
                 android:textSize="16sp" />
 
         </LinearLayout>

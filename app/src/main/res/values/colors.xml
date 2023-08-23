@@ -12,5 +12,7 @@
     <color name="role_bar_gray_1">#CDCDCD</color>
     <color name="role_bar_gray_2">#C0C0C0</color>
     <color name="alert_background">#8A4B4B4B</color>
-    <color name="roles_count_gray">#D1D1D1</color>
+    <color name="roles_picked_gray">#D1D1D1</color>
+    <color name="role_count_gray">#585858</color>
+    <color name="roles_plus_minus_black">#1E1E1E</color>
 </resources>
