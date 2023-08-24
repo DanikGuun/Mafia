@@ -1,8 +1,7 @@
 package com.example.mafia
 
-import android.media.MediaRouter2.RoutingController
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
@@ -10,26 +9,35 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
-import org.w3c.dom.Text
 
 class GameSettingsActivity: AppCompatActivity() {
     private var namesCounter = 0
         get() = field
         set(value) {
-            findViewById<TextView>(R.id.roles_count).text = "выбрано 0/${namesCounter+1}"
+            findViewById<TextView>(R.id.roles_count).text = buildString {
+                append("выбрано ")
+                append(rolesPicked)
+                append("/")
+        append(namesCounter+1)
+    }
             field = value
         }
+    private var rolesPicked = 0
     private val players = ArrayList<String>()
+    private val roles = ArrayList<Role>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_start_activity)
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
         generateRoles()
+        addPlayer("laksjd")
     }
 
     private fun onAddPlayerButton(){
@@ -42,6 +50,7 @@ class GameSettingsActivity: AppCompatActivity() {
         alertLayout.findViewById<Button>(R.id.cancel_player)?.setOnClickListener {cancelPlayer(alert)}
         alert.show()
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun generateRoles(){
         val baseIconID = 100
         val baseRoleNameID = 200
@@ -50,7 +59,7 @@ class GameSettingsActivity: AppCompatActivity() {
         val basePlusID = 500
         val baseMinusID = 600
         var count = 0
-        for(role in Roles.getAllRoles()){
+        Roles.getAllRoles().forEach { role ->
             val mainLinearLayout = findViewById<LinearLayout>(R.id.game_settings_linear_layout)//ScrollView
             val roleConstraint = ConstraintLayout(this)//для роли
             roleConstraint.id = count
@@ -91,9 +100,11 @@ class GameSettingsActivity: AppCompatActivity() {
             plusButton.stateListAnimator = Button(this).stateListAnimator
             plusButton.text = "+"
             plusButton.textSize = 24f
+            plusButton.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+            plusButton.setOnClickListener{onAddRole(roleCounter, role)}
             plusButton.setTextAppearance(R.style.roles_counter_text)
             plusButton.setTextColor(getColor(R.color.roles_plus_minus_black))
-            roleConstraint.addView(plusButton)
+            roleConstraint.addView(plusButton, ViewGroup.LayoutParams(80, 80))
             //-
             val minusButton = TextView(this)
             minusButton.id = baseMinusID + count
@@ -101,11 +112,13 @@ class GameSettingsActivity: AppCompatActivity() {
             minusButton.stateListAnimator = Button(this).stateListAnimator
             minusButton.text = "-"
             minusButton.textSize = 24f
+            minusButton.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+            minusButton.setOnClickListener{onMinusRole(roleCounter, role, roleCounter)}
             minusButton.setTextAppearance(R.style.roles_counter_text)
             minusButton.setTextColor(getColor(R.color.roles_plus_minus_black))
-            roleConstraint.addView(minusButton)
+            roleConstraint.addView(minusButton, ViewGroup.LayoutParams(80, 80))
 
-                        //Привязка
+            //Привязка
             val constraintSet = ConstraintSet()
             constraintSet.clone(roleConstraint)
 
@@ -136,6 +149,42 @@ class GameSettingsActivity: AppCompatActivity() {
             count++
         }
     }
+    @SuppressLint("SetTextI18n")
+    private fun onAddRole(countText: TextView, role: Role){
+        if (rolesPicked < namesCounter){
+            //меняем счётчик на роли
+            countText.text = (countText.text.toString().toInt() + 1).toString()
+            roles.add(role)
+            rolesPicked++
+            //меняем общий счётчик
+            val rolesCount = findViewById<TextView>(R.id.roles_count)
+            val counters = rolesCount.text.toString().split(" ")[1].split("/").toIntList()//список сколько из скольки ролей есть
+            counters[0]++
+            rolesCount.text = "выбрано ${counters[0]}/${counters[1]}"
+        }
+        else{
+            Toast.makeText(this, "Все роли уже выбраны", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+    @SuppressLint("SetTextI18n")
+    private fun onMinusRole(countText: TextView, role: Role, roleCounter: TextView){
+        if (rolesPicked > 0 && roleCounter.text.toString().toInt() > 0){
+            //меняем счётчик на роли
+            countText.text = (countText.text.toString().toInt() - 1).toString()
+            roles.remove(role)
+            rolesPicked--
+            //меняем общий счётчик
+            val rolesCount = findViewById<TextView>(R.id.roles_count)
+            val counters = rolesCount.text.toString().split(" ")[1].split("/").toIntList() //список сколько из скольки ролей есть
+            counters[0]--
+            rolesCount.text = "выбрано ${counters[0]}/${counters[1]}"
+        }
+        else{
+            Toast.makeText(this, "Ролей не может быть меньше 0", Toast.LENGTH_SHORT).show()
+        }
+    }
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun addPlayer(name: String){
         val mainLinear = findViewById<LinearLayout>(R.id.game_settings_linear_layout)
         var playerName = name
@@ -173,4 +222,9 @@ class GameSettingsActivity: AppCompatActivity() {
     private fun cancelPlayer(alert: AlertDialog){
         alert.cancel()
     }
+}
+fun List<String>.toIntList(): ArrayList<Int>{
+    val intList = ArrayList<Int>()
+    for (i in this) intList.add(i.toInt())
+    return intList
 }
