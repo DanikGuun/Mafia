@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Mafia" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -9,7 +9,7 @@
 
     <style name="ToolbarTextStyle" parent="@style/TextAppearance.AppCompat">
         <item name="android:textAlignment">center</item>
-        <item name="android:textSize">60dp</item>
+        <item name="android:textSize">60sp</item>
         <item name="fontFamily">@font/archive_regular</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/white</item>
@@ -20,11 +20,11 @@
         <item name="color">@color/button_red</item>
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/aero_matic_regular</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">30sp</item>
     </style>
     <style name="InfoRolesTextStyle" parent="@style/TextAppearance.AppCompat">
         <item name="android:textAlignment"> center</item>
-        <item name="android:textSize">40dp</item>
+        <item name="android:textSize">40sp</item>
         <item name="android:fontFamily">@font/archive_regular</item>
         <item name="android:textColor">@color/role_info_name_red</item>
         <item name="android:gravity">center_vertical</item>
@@ -33,12 +33,12 @@
     <style name="PlayerNameText">
         <item name="android:fontFamily">@font/comic_sans</item>
         <item name="android:textColor">@color/player_name_red</item>
-        <item name="android:textSize">24dp</item>
+        <item name="android:textSize">24sp</item>
     </style>
     <style name="roles_counter_text">
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="fontFamily">@font/comic_sans</item>
         <item name="android:color">@color/role_count_gray</item>
     </style>

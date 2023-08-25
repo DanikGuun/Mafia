@@ -1,9 +1,8 @@
 package com.example.mafia
 
+import android.annotation.SuppressLint
 import android.app.ActionBar.LayoutParams
-import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +21,11 @@ class RolesActivity: AppCompatActivity() {
         setContentView(R.layout.roles_activity)
         generateRolesPlanks()
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun generateRolesPlanks(){
         var count = 0
         val baseID = 1000
-        for (role in Roles.getAllRoles()){
+        Roles.getAllRoles().forEach{role ->
             val roleLayout = LinearLayout(this)
             roleLayout.setBackgroundResource(R.drawable.role_bar_shape)
             roleLayout.id = baseID + count
@@ -44,10 +44,10 @@ class RolesActivity: AppCompatActivity() {
             val roleName = TextView(this)
             roleName.text = role.name
             roleName.layoutParams = ViewGroup.LayoutParams(700, LayoutParams.MATCH_PARENT)
-            roleName.setTextAppearance(R.style.InfoRolesTextStyle)
             roleName.textAlignment = View.TEXT_ALIGNMENT_CENTER
-            roleName.setGravity(Gravity.CENTER_VERTICAL)
+            roleName.gravity = Gravity.CENTER_VERTICAL
             roleLayout.addView(roleName)
+            roleName.setTextAppearance(R.style.InfoRolesTextStyle)
 
 
             val roleListViewLayout = findViewById<LinearLayout>(R.id.role_listview_linear)
@@ -56,13 +56,13 @@ class RolesActivity: AppCompatActivity() {
             count++
         }
     }
-    fun onClick(role: Role){
+    private fun onClick(role: Role){
         val alertBuilder = AlertDialog.Builder(this)
-        val alert_layout = layoutInflater.inflate(R.layout.role_description_alert, null)
-        alertBuilder.setView(alert_layout)
-        alert_layout.findViewById<ImageView>(R.id.alert_role_icon).setImageResource(role.icon)
-        alert_layout.findViewById<TextView>(R.id.alert_role_name).text = role.name
-        alert_layout.findViewById<TextView>(R.id.alert_role_description).text = role.description
+        val alertLayout = layoutInflater.inflate(R.layout.role_description_alert, null)
+        alertBuilder.setView(alertLayout)
+        alertLayout.findViewById<ImageView>(R.id.alert_role_icon).setImageResource(role.icon)
+        alertLayout.findViewById<TextView>(R.id.alert_role_name).text = role.name
+        alertLayout.findViewById<TextView>(R.id.alert_role_description).text = role.description
         alertBuilder.create().show()
     }
 }

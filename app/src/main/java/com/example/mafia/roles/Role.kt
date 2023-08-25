@@ -1,7 +1,5 @@
 package com.example.mafia.roles
 
-import android.graphics.drawable.Drawable
-
 interface Role {
     val name: String
     val description: String

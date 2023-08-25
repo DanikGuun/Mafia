@@ -1,6 +1,5 @@
 package com.example.mafia.roles
 
-import androidx.appcompat.app.AppCompatActivity
 import com.example.mafia.R
 
 object Roles {
