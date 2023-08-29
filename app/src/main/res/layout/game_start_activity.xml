@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/activity_background_shape"
-    tools:context=".GameSettingsActivity">
+    tools:context=".activities.GameSettingsActivity">
 
     <ScrollView
         android:layout_width="408dp"

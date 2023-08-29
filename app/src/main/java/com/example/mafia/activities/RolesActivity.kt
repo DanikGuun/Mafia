@@ -1,4 +1,4 @@
-package com.example.mafia
+package com.example.mafia.activities
 
 import android.annotation.SuppressLint
 import android.app.ActionBar.LayoutParams
@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 

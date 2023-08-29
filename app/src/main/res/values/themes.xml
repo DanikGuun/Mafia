@@ -30,12 +30,12 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textAllCaps">true</item>
     </style>
-    <style name="PlayerNameText">
+    <style name="PlayerNameText" parent="@style/TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/comic_sans</item>
         <item name="android:textColor">@color/player_name_red</item>
         <item name="android:textSize">24sp</item>
     </style>
-    <style name="roles_counter_text">
+    <style name="roles_counter_text" parent="@style/TextAppearance.AppCompat">
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">20sp</item>

@@ -1,4 +1,4 @@
-package com.example.mafia
+package com.example.mafia.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 
