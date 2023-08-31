@@ -2,6 +2,7 @@ package com.example.mafia.activities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.mafia.R
+import com.example.mafia.RolesData
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 
@@ -33,12 +35,15 @@ class GameSettingsActivity: AppCompatActivity() {
     private var rolesPicked = 0
     private val players = ArrayList<String>()
     private val roles = ArrayList<Role>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_start_activity)
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
+        findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()
-        addPlayer("laksjd")
+        addPlayer("asdf")
+        addPlayer("asdf")
     }
 
     private fun onAddPlayerButton(){
@@ -183,6 +188,13 @@ class GameSettingsActivity: AppCompatActivity() {
         }
         else{
             Toast.makeText(this, "Ролей не может быть меньше 0", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun onPlayButton(){
+        val data = RolesData()
+        data.distributeRoles(players, roles)
+        for (key in data.rolesMap.keys) {
+            Log.d("TAG", "$key: ${data.rolesMap[key]}")
         }
     }
     @SuppressLint("UseCompatLoadingForDrawables")
