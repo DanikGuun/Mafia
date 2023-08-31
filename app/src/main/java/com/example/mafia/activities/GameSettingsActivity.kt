@@ -1,6 +1,7 @@
 package com.example.mafia.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -42,6 +43,7 @@ class GameSettingsActivity: AppCompatActivity() {
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
         findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()
+        TODO("убрать")
         addPlayer("asdf")
         addPlayer("asdf")
     }
@@ -193,9 +195,7 @@ class GameSettingsActivity: AppCompatActivity() {
     private fun onPlayButton(){
         val data = RolesData()
         data.distributeRoles(players, roles)
-        for (key in data.rolesMap.keys) {
-            Log.d("TAG", "$key: ${data.rolesMap[key]}")
-        }
+        val intent = Intent()
     }
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun addPlayer(name: String){

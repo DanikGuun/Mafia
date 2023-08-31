@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".activities.RolesActivity"/>
         <activity android:name=".activities.GameSettingsActivity"/>
+        <activity android:name=".activities.GameActicity"/>
     </application>
 
 </manifest>
