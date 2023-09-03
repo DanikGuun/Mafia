@@ -3,7 +3,8 @@
     <gradient
         android:startColor="@color/toolbar_red_1"
         android:endColor="@color/toolbar_red_2"
-        android:angle="180"/>
+        android:angle="180"
+        android:type="linear"/>
     <corners
         android:bottomLeftRadius="20dp"
         android:bottomRightRadius="20dp"/>

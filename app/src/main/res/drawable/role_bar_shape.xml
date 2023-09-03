@@ -3,6 +3,7 @@
     <gradient
         android:startColor="@color/role_bar_gray_1"
         android:endColor="@color/role_bar_gray_2"
-        android:angle="180"/>
+        android:angle="180"
+        android:type="linear"/>
     <corners android:radius="15dp"/>
 </shape>

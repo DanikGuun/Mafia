@@ -1,6 +1,8 @@
 package com.example.mafia.roles
 
-interface Role {
+import java.io.Serializable
+
+interface Role: Serializable {
     val name: String
     val description: String
     val icon: Int

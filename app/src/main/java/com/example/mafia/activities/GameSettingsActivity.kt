@@ -43,7 +43,7 @@ class GameSettingsActivity: AppCompatActivity() {
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
         findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()
-        TODO("убрать")
+        //TODO: убрать
         addPlayer("asdf")
         addPlayer("asdf")
     }
@@ -192,11 +192,15 @@ class GameSettingsActivity: AppCompatActivity() {
             Toast.makeText(this, "Ролей не может быть меньше 0", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun onPlayButton(){
         val data = RolesData()
         data.distributeRoles(players, roles)
-        val intent = Intent()
+        val intent = Intent(this, GameActicity::class.java)
+        intent.putExtra("rolesData", data)
+        startActivity(intent)
     }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun addPlayer(name: String){
         val mainLinear = findViewById<LinearLayout>(R.id.game_settings_linear_layout)

@@ -1,12 +1,13 @@
 package com.example.mafia.roles
 
 import com.example.mafia.R
+import java.io.Serializable
 
-object Roles {
+object Roles: Serializable {
     fun getAllRoles(): Array<Role>{
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }
-    class Peaceful: Role{
+    class Peaceful: Role, Serializable{
         override val name = "Мирный"
             get() = field
 
@@ -19,7 +20,7 @@ object Roles {
         }
 
     }
-    class Mafia: Role{
+    class Mafia: Role, Serializable{
         override val name = "Мафия"
             get() = field
         override val description = "Цель - убить всех мирных"
@@ -29,7 +30,7 @@ object Roles {
         override fun action() {
         }
     }
-    class Doctor: Role{
+    class Doctor: Role, Serializable{
         override val name = "Доктор"
             get() = field
         override val description = "Лечит"
@@ -39,7 +40,7 @@ object Roles {
         override fun action() {
         }
     }
-    class Sherif: Role{
+    class Sherif: Role, Serializable{
         override val name = "Комиссар"
             get() = field
         override val description = "Ищет Мафию"
@@ -49,7 +50,7 @@ object Roles {
         override fun action() {
         }
     }
-    class Prostitute: Role {
+    class Prostitute: Role , Serializable{
         override val name = "Путана"
             get() = field
         override val description = "чпокается"
@@ -60,7 +61,7 @@ object Roles {
             TODO("Not yet implemented")
         }
     }
-    class Avenger: Role{
+    class Avenger: Role, Serializable{
         override val name = "Мститель"
             get() = field
         override val description = "Убивает"
@@ -71,7 +72,7 @@ object Roles {
 
         }
     }
-    class Journalist: Role{
+    class Journalist: Role, Serializable{
         override val name = "Журналист"
             get() = field
         override val description = "Смотрит в одной ли команде игроки"
@@ -81,7 +82,7 @@ object Roles {
         override fun action() {
         }
     }
-    class Kamikaze: Role{
+    class Kamikaze: Role, Serializable{
         override val name = "Камикадзе"
             get() = field
         override val description = "Убивает на голосовании"
