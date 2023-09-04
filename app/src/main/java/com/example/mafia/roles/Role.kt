@@ -2,9 +2,13 @@ package com.example.mafia.roles
 
 import java.io.Serializable
 
-interface Role: Serializable {
-    val name: String
-    val description: String
-    val icon: Int
-    fun action()
+abstract class Role: Serializable {
+    abstract val name: String
+    abstract val description: String
+    abstract val icon: Int
+    abstract fun action()
+    override fun equals(other: Any?): Boolean {
+        if(other is Role){return other.name == this.name}
+        return false
+    }
 }

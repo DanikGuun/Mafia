@@ -7,7 +7,7 @@ object Roles: Serializable {
     fun getAllRoles(): Array<Role>{
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }
-    class Peaceful: Role, Serializable{
+    class Peaceful: Role(), Serializable{
         override val name = "Мирный"
             get() = field
 
@@ -20,7 +20,7 @@ object Roles: Serializable {
         }
 
     }
-    class Mafia: Role, Serializable{
+    class Mafia: Role(), Serializable{
         override val name = "Мафия"
             get() = field
         override val description = "Цель - убить всех мирных"
@@ -30,7 +30,7 @@ object Roles: Serializable {
         override fun action() {
         }
     }
-    class Doctor: Role, Serializable{
+    class Doctor: Role(), Serializable{
         override val name = "Доктор"
             get() = field
         override val description = "Лечит"
@@ -40,7 +40,7 @@ object Roles: Serializable {
         override fun action() {
         }
     }
-    class Sherif: Role, Serializable{
+    class Sherif: Role(), Serializable{
         override val name = "Комиссар"
             get() = field
         override val description = "Ищет Мафию"
@@ -50,7 +50,7 @@ object Roles: Serializable {
         override fun action() {
         }
     }
-    class Prostitute: Role , Serializable{
+    class Prostitute: Role(), Serializable{
         override val name = "Путана"
             get() = field
         override val description = "чпокается"
@@ -61,7 +61,7 @@ object Roles: Serializable {
             TODO("Not yet implemented")
         }
     }
-    class Avenger: Role, Serializable{
+    class Avenger: Role(), Serializable{
         override val name = "Мститель"
             get() = field
         override val description = "Убивает"
@@ -72,7 +72,7 @@ object Roles: Serializable {
 
         }
     }
-    class Journalist: Role, Serializable{
+    class Journalist: Role(), Serializable{
         override val name = "Журналист"
             get() = field
         override val description = "Смотрит в одной ли команде игроки"
@@ -82,7 +82,7 @@ object Roles: Serializable {
         override fun action() {
         }
     }
-    class Kamikaze: Role, Serializable{
+    class Kamikaze: Role(), Serializable{
         override val name = "Камикадзе"
             get() = field
         override val description = "Убивает на голосовании"
