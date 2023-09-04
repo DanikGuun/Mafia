@@ -20,18 +20,20 @@
             android:id="@+id/gamePlayersList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@drawable/roles_listview_divider_shape"
             android:orientation="vertical"
             android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingRight="50dp"
+            android:showDividers="middle">
 
             <Button
-                android:id="@+id/game_start_button"
+                android:id="@+id/gameStartButton"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="60dp"
                 android:background="@drawable/button_shape"
-                android:text="Button"
+                android:text="@string/start"
                 android:theme="@style/ButtonStyle" />
         </LinearLayout>
     </ScrollView>
@@ -48,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/game_toolbar_text"
+        android:id="@+id/gameToolbarText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/archive_regular"

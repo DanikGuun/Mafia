@@ -3,7 +3,6 @@ package com.example.mafia.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.Button
@@ -17,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.mafia.R
-import com.example.mafia.RolesData
+import com.example.mafia.GameData
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 
@@ -194,7 +193,7 @@ class GameSettingsActivity: AppCompatActivity() {
     }
 
     private fun onPlayButton(){
-        val data = RolesData()
+        val data = GameData()
         data.distributeRoles(players, roles)
         val intent = Intent(this, GameActicity::class.java)
         intent.putExtra("rolesData", data)
