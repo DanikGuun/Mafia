@@ -25,7 +25,7 @@
             android:paddingRight="50dp">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/game_start_button"
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:layout_marginLeft="60dp"
