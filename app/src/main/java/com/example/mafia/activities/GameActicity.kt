@@ -30,8 +30,8 @@ class GameActicity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_activity)
         gameData = intent.getSerializableExtra("rolesData") as GameData
-        Log.d("TAG", "onCreate: ${gameData?.rolesMap?.keys}")
         blackToTransparrentAnim(findViewById(R.id.fadeConstraint))
+        generatePlayersWithExcluded(null)
     }
 
     @SuppressLint("SetTextI18n")
@@ -44,7 +44,12 @@ class GameActicity: AppCompatActivity() {
             blackToTransparrentAnim(view)
         }
     }
-
+    private fun generatePlayersWithExcluded(excludedRole: Role?){
+        for(key in gameData!!.rolesMap.keys){
+            if(excludedRole == gameData!!.rolesMap[key]) continue
+            generatePlayer(key, gameData!!.rolesMap[key]!!)
+        }
+    }
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun generatePlayer(name: String, role: Role){
         val linearScroll = findViewById<LinearLayout>(R.id.gamePlayersList)

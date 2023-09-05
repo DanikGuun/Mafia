@@ -7,7 +7,7 @@ object Roles: Serializable {
     fun getAllRoles(): Array<Role>{
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }
-    class Peaceful: Role(){
+    class Peaceful: Role(), Serializable{
         override val name = "Мирный"
             get() = field
 
