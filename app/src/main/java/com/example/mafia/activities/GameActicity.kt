@@ -24,13 +24,14 @@ import kotlinx.coroutines.launch
 class GameActicity: AppCompatActivity() {
     private var gameData: GameData? = null
 
+    @Suppress("DEPRECATION")
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_activity)
-        gameData = savedInstanceState?.getSerializable("rolesData", GameData::class.java)
+        gameData = intent.getSerializableExtra("rolesData") as GameData
+        Log.d("TAG", "onCreate: ${gameData?.rolesMap?.keys}")
         blackToTransparrentAnim(findViewById(R.id.fadeConstraint))
-        generatePlayer("asdfbg", Roles.Mafia())
     }
 
     @SuppressLint("SetTextI18n")

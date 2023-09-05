@@ -1,5 +1,6 @@
 package com.example.mafia.roles
 
+import android.os.Parcelable
 import java.io.Serializable
 
 abstract class Role: Serializable {
