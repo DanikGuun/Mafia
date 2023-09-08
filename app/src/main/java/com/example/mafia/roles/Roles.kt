@@ -7,6 +7,9 @@ object Roles: Serializable {
     fun getAllRoles(): Array<Role>{
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }
+    fun getRolesQueue(): Array<Role>{
+        return arrayOf(Prostitute(), Mafia(), Avenger(), Doctor(), Journalist(), Kamikaze(), Sherif())
+    }
     class Peaceful: Role(), Serializable{
         override val name = "Мирный"
             get() = field
