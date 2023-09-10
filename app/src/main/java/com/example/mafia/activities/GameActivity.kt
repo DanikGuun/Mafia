@@ -3,6 +3,7 @@ package com.example.mafia.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams
@@ -22,6 +23,8 @@ class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
     private val rolesQueue = Roles.getRolesQueue()
     private var currentRoleIndex = 0
+    private val journalistSteps = ArrayList<String>()
+
     @Suppress("DEPRECATION")
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,7 +77,12 @@ class GameActivity: AppCompatActivity() {
         playerPlank.background = getDrawable(R.drawable.role_bar_shape)
 
         if(needClick){
-            playerPlank.setOnClickListener{ onPlayerClick(name) }
+            if(rolesQueue[currentRoleIndex] == Roles.Journalist()){
+                playerPlank.setOnClickListener{ onJournalistClick(name) }
+            }
+            else{
+                playerPlank.setOnClickListener{ onPlayerClick(name) }
+            }
             playerPlank.stateListAnimator = Button(this).stateListAnimator
         }
 
@@ -92,13 +100,25 @@ class GameActivity: AppCompatActivity() {
 
         linearScroll.addView(playerPlank, 0, LayoutParams(LayoutParams.MATCH_PARENT, 200))
     }
+
     private fun onPlayerClick(name: String){
         gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(name))
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
+
+    private fun onJournalistClick(name: String){
+        journalistSteps.add(name)
+        if(journalistSteps.size == 2){
+            gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), journalistSteps)
+            nextRoundFade(rolesQueue[currentRoleIndex])
+
+        }
+    }
+
     private fun startGame(){
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
+
     private fun blackToTransparentAnim(view: View){
         val animator = AlphaAnimation(1f, 0f)
         animator.fillAfter = true

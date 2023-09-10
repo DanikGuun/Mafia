@@ -1,5 +1,6 @@
 package com.example.mafia
 
+import android.util.Log
 import com.example.mafia.roles.Role
 import java.io.Serializable
 import kotlin.random.Random
@@ -26,7 +27,4 @@ class GameData(val rolesMap: HashMap<String, Role>): Serializable {
         return namesList
     }
 
-    companion object {
-        const val reallyConstant: Int = 42
-    }
 }
