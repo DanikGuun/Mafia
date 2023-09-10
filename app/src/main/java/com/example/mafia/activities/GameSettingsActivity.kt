@@ -195,7 +195,7 @@ class GameSettingsActivity: AppCompatActivity() {
     private fun onPlayButton(){
         val data = GameData()
         data.distributeRoles(players, roles)
-        val intent = Intent(this, GameActicity::class.java)
+        val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("rolesData", data)
         startActivity(intent)
     }

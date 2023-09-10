@@ -3,7 +3,6 @@ package com.example.mafia.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup.LayoutParams
@@ -14,61 +13,61 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.mafia.R
 import com.example.mafia.GameData
+import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import java.util.logging.Handler
 
-class GameActicity: AppCompatActivity() {
+class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
     private val rolesQueue = Roles.getRolesQueue()
-    var currentRoleIndex = 0
-
+    private var currentRoleIndex = 0
     @Suppress("DEPRECATION")
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_activity)
         gameData = intent.getSerializableExtra("rolesData") as GameData
-        blackToTransparrentAnim(findViewById(R.id.fadeConstraint))
-        generatePlayersWithExcluded(null)
+        blackToTransparentAnim(findViewById(R.id.fadeConstraint))
+        generatePlayersWithExcluded(null, false)
         findViewById<TextView>(R.id.gameToolbarText).text = "знакомство"
         findViewById<Button>(R.id.gameStartButton).setOnClickListener{ startGame() }
     }
 
     @SuppressLint("SetTextI18n")
-    @OptIn(DelicateCoroutinesApi::class)
     private fun nextRoundFade(role: Role){
+        //делает переход на следующий раунд, вызывать в последнююю очередь
         val fadeView = findViewById<ConstraintLayout>(R.id.fadeConstraint)
         findViewById<TextView>(R.id.fadeText).text = "Просыпается ${role.name}"
         transparentToBlackAnim(fadeView)
         android.os.Handler(Looper.getMainLooper()).postDelayed( {
             findViewById<TextView>(R.id.gameToolbarText).text = role.name
-            blackToTransparrentAnim(fadeView)
+            blackToTransparentAnim(fadeView)
             findViewById<LinearLayout>(R.id.gamePlayersList).removeAllViews()
             generatePlayersWithExcluded(role)
         }, 2000)
+        currentRoleIndex++
     }
-    private fun generatePlayersWithExcluded(excludedRole: Role?){
+
+    private fun generatePlayersWithExcluded(excludedRole: Role?, needClick: Boolean = true){
         for(key in gameData!!.rolesMap.keys){
             if(excludedRole == gameData!!.rolesMap[key]) continue
-            generatePlayer(key, gameData!!.rolesMap[key]!!)
+            generatePlayer(key, gameData!!.rolesMap[key]!!, needClick)
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun generatePlayer(name: String, role: Role, needClick: Boolean = false){
+    private fun generatePlayer(name: String, role: Role, needClick: Boolean = true){
         val linearScroll = findViewById<LinearLayout>(R.id.gamePlayersList)
 
         val playerPlank = LinearLayout(this)
         playerPlank.orientation = LinearLayout.HORIZONTAL
         playerPlank.background = getDrawable(R.drawable.role_bar_shape)
+
+        if(needClick){
+            playerPlank.setOnClickListener{ onPlayerClick(name) }
+            playerPlank.stateListAnimator = Button(this).stateListAnimator
+        }
 
         val icon = ImageView(this)
         icon.setImageDrawable(getDrawable(role.icon))
@@ -84,12 +83,14 @@ class GameActicity: AppCompatActivity() {
 
         linearScroll.addView(playerPlank, 0, LayoutParams(LayoutParams.MATCH_PARENT, 200))
     }
-
+    private fun onPlayerClick(name: String){
+        gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(name))
+        nextRoundFade(rolesQueue[currentRoleIndex])
+    }
     private fun startGame(){
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
-
-    private fun blackToTransparrentAnim(view: View){
+    private fun blackToTransparentAnim(view: View){
         val animator = AlphaAnimation(1f, 0f)
         animator.fillAfter = true
         animator.duration = 2000
