@@ -43,8 +43,9 @@ class GameSettingsActivity: AppCompatActivity() {
         findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()
         //TODO: убрать
-        addPlayer("asdf")
-        addPlayer("asdf")
+        for(name in arrayOf("bus", "science", "demand", "accuse","cause", "lesson", "dance", "tower")){
+            addPlayer(name)
+        }
     }
 
     private fun onAddPlayerButton(){
@@ -137,7 +138,7 @@ class GameSettingsActivity: AppCompatActivity() {
             constraintSet.connect(roleName.id, ConstraintSet.LEFT, icon.id, ConstraintSet.RIGHT)
             constraintSet.connect(roleName.id, ConstraintSet.TOP, roleConstraint.id, ConstraintSet.TOP)
             constraintSet.connect(roleName.id, ConstraintSet.BOTTOM, roleConstraint.id, ConstraintSet.BOTTOM)
-            //колво
+            //>колво
             constraintSet.connect(counterText.id, ConstraintSet.TOP, roleConstraint.id, ConstraintSet.TOP)
             constraintSet.connect(counterText.id, ConstraintSet.RIGHT, roleConstraint.id, ConstraintSet.RIGHT, 120)
             //цифра

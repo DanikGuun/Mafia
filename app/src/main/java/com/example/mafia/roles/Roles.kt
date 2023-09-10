@@ -4,6 +4,7 @@ import com.example.mafia.R
 import java.io.Serializable
 
 object Roles: Serializable {
+    const val ROLES_COUNT = 7
     fun getAllRoles(): Array<Role>{
         return arrayOf(Peaceful(), Mafia(), Doctor(), Sherif(), Prostitute(), Avenger(), Journalist(), Kamikaze())
     }

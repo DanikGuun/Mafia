@@ -8,7 +8,6 @@ class GameData(val rolesMap: HashMap<String, Role>): Serializable {
     constructor() : this(HashMap<String, Role>())
 
     val steps = HashMap<Role, ArrayList<ArrayList<String>>>() //по роли определяется кто ходил, далее вложенный массив, где 0 - кто ходил, 1 - на кого ходили
-    val ROLES_COUNT = 8
     fun distributeRoles(names: ArrayList<String>, roles: ArrayList<Role>){
         val namesLength = names.lastIndex
         for(i in 0..namesLength){

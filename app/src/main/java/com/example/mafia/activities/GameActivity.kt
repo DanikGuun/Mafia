@@ -37,16 +37,25 @@ class GameActivity: AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun nextRoundFade(role: Role){
         //делает переход на следующий раунд, вызывать в последнююю очередь
+        val isEndOfNight = currentRoleIndex+1 > Roles.ROLES_COUNT-1
         val fadeView = findViewById<ConstraintLayout>(R.id.fadeConstraint)
-        findViewById<TextView>(R.id.fadeText).text = "Просыпается ${role.name}"
         transparentToBlackAnim(fadeView)
+
+        if (isEndOfNight) findViewById<TextView>(R.id.fadeText).text = "Город просыпается"
+        else findViewById<TextView>(R.id.fadeText).text = "Просыпается ${role.name}"
+
         android.os.Handler(Looper.getMainLooper()).postDelayed( {
-            findViewById<TextView>(R.id.gameToolbarText).text = role.name
             blackToTransparentAnim(fadeView)
             findViewById<LinearLayout>(R.id.gamePlayersList).removeAllViews()
-            generatePlayersWithExcluded(role)
-        }, 2000)
-        currentRoleIndex++
+
+            if(isEndOfNight) findViewById<TextView>(R.id.gameToolbarText).text = "Итоги"
+            else{
+                findViewById<TextView>(R.id.gameToolbarText).text = role.name
+                generatePlayersWithExcluded(role)
+                currentRoleIndex++
+            }
+        }, 2)
+
     }
 
     private fun generatePlayersWithExcluded(excludedRole: Role?, needClick: Boolean = true){
