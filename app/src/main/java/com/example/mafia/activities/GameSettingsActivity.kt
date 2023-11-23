@@ -19,6 +19,7 @@ import com.example.mafia.R
 import com.example.mafia.GameData
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
+import org.w3c.dom.Text
 
 class GameSettingsActivity: AppCompatActivity() {
     private var namesCounter = 0
@@ -45,6 +46,11 @@ class GameSettingsActivity: AppCompatActivity() {
         //TODO: убрать
         for(name in arrayOf("bus", "science", "demand", "accuse","cause", "lesson", "dance", "tower")){
             addPlayer(name)
+        }
+        val text = TextView(this)
+        text.text = "0"
+        for(role in Roles.getAllRoles()){
+            onAddRole(text, role)
         }
     }
 

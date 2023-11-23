@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.mafia.GameData
+import com.example.mafia.Player
 import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
@@ -23,7 +24,7 @@ class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
     private val rolesQueue = Roles.getRolesQueue()
     private var currentRoleIndex = 0
-    private val journalistSteps = ArrayList<String>()
+    private val journalistSteps = ArrayList<Player>()
 
     @Suppress("DEPRECATION")
     @SuppressLint("NewApi")
@@ -62,14 +63,14 @@ class GameActivity: AppCompatActivity() {
     }
 
     private fun generatePlayersWithExcluded(excludedRole: Role?, needClick: Boolean = true){
-        for(key in gameData!!.rolesMap.keys){
-            if(excludedRole == gameData!!.rolesMap[key]) continue
-            generatePlayer(key, gameData!!.rolesMap[key]!!, needClick)
+        for(player in gameData!!.playersList){
+            if(player.role == excludedRole) continue
+            generatePlayer(player, needClick)
         }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun generatePlayer(name: String, role: Role, needClick: Boolean = true){
+    private fun generatePlayer(player: Player, needClick: Boolean = true){
         val linearScroll = findViewById<LinearLayout>(R.id.gamePlayersList)
 
         val playerPlank = LinearLayout(this)
@@ -78,20 +79,20 @@ class GameActivity: AppCompatActivity() {
 
         if(needClick){
             if(rolesQueue[currentRoleIndex] == Roles.Journalist()){
-                playerPlank.setOnClickListener{ onJournalistClick(name) }
+                playerPlank.setOnClickListener{ onJournalistClick(player) }
             }
             else{
-                playerPlank.setOnClickListener{ onPlayerClick(name) }
+                playerPlank.setOnClickListener{ onPlayerClick(player) }
             }
             playerPlank.stateListAnimator = Button(this).stateListAnimator
         }
 
         val icon = ImageView(this)
-        icon.setImageDrawable(getDrawable(role.icon))
+        icon.setImageDrawable(getDrawable(player.role.icon))
         playerPlank.addView(icon, LayoutParams(200, 200))
 
         val playerName = TextView(this)
-        playerName.text = name
+        playerName.text = player.name
         playerName.setTextAppearance(R.style.PlayerNameText)
         playerName.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
         playerName.gravity = Gravity.CENTER_VERTICAL
@@ -101,13 +102,13 @@ class GameActivity: AppCompatActivity() {
         linearScroll.addView(playerPlank, 0, LayoutParams(LayoutParams.MATCH_PARENT, 200))
     }
 
-    private fun onPlayerClick(name: String){
-        gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(name))
+    private fun onPlayerClick(player: Player){
+        gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(player))
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
 
-    private fun onJournalistClick(name: String){
-        journalistSteps.add(name)
+    private fun onJournalistClick(player: Player){
+        journalistSteps.add(player)
         if(journalistSteps.size == 2){
             gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), journalistSteps)
             nextRoundFade(rolesQueue[currentRoleIndex])
