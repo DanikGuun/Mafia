@@ -44,7 +44,7 @@ class GameSettingsActivity: AppCompatActivity() {
         findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()
         //TODO: убрать
-        for(name in arrayOf("bus", "science", "demand", "accuse","cause", "lesson", "dance", "tower")){
+        for(name in arrayOf("bus", "science", "demand", "accuse","cause", "lesson", "dance")){
             addPlayer(name)
         }
         val text = TextView(this)

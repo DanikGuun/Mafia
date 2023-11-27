@@ -2,9 +2,12 @@ package com.example.mafia.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mafia.R
+import com.example.mafia.roles.Role
+import com.example.mafia.roles.Roles
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

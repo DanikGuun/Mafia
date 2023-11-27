@@ -1,5 +1,6 @@
 package com.example.mafia
 
+import android.util.Log
 import com.example.mafia.roles.Role
 import java.io.Serializable
 import kotlin.random.Random
@@ -30,4 +31,12 @@ class GameData(val playersList: ArrayList<Player>): Serializable {
         return playersList
     }
 
+    fun sumUpNight(): String{
+        Log.d("TAG", "sumUpNight: ${steps}")
+        val str = StringBuilder()
+        for(step in steps.keys){
+            str.append(steps[step]!![0][0].role.action(this) + "\n")
+        }
+        return str.toString()
+    }
 }

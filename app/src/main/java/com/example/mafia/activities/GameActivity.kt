@@ -23,8 +23,9 @@ import com.example.mafia.roles.Roles
 class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
     private val rolesQueue = Roles.getRolesQueue()
-    private var currentRoleIndex = 0
+    private var currentRoleIndex = -1
     private val journalistSteps = ArrayList<Player>()
+    private var isEndOfNight = false
 
     @Suppress("DEPRECATION")
     @SuppressLint("NewApi")
@@ -40,23 +41,28 @@ class GameActivity: AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun nextRoundFade(role: Role){
+        Log.d("TAG", "nextRoundFade: ${currentRoleIndex}")
         //делает переход на следующий раунд, вызывать в последнююю очередь
-        val isEndOfNight = currentRoleIndex+1 > Roles.ROLES_COUNT-1
         val fadeView = findViewById<ConstraintLayout>(R.id.fadeConstraint)
         transparentToBlackAnim(fadeView)
 
-        if (isEndOfNight) findViewById<TextView>(R.id.fadeText).text = "Город просыпается"
+        if (isEndOfNight){
+            findViewById<TextView>(R.id.fadeText).text = "Город просыпается"
+            Log.d("TAG", "nextRoundFade: ${gameData!!.sumUpNight()}")
+        }
         else findViewById<TextView>(R.id.fadeText).text = "Просыпается ${role.name}"
 
         android.os.Handler(Looper.getMainLooper()).postDelayed( {
             blackToTransparentAnim(fadeView)
             findViewById<LinearLayout>(R.id.gamePlayersList).removeAllViews()
 
-            if(isEndOfNight) findViewById<TextView>(R.id.gameToolbarText).text = "Итоги"
+            if(isEndOfNight){
+                findViewById<TextView>(R.id.gameToolbarText).text = "Итоги"
+                Log.d("TAG", "nextRoundFade: ${gameData!!.steps}")
+            }
             else{
                 findViewById<TextView>(R.id.gameToolbarText).text = role.name
                 generatePlayersWithExcluded(role)
-                currentRoleIndex++
             }
         }, 2)
 
@@ -104,6 +110,7 @@ class GameActivity: AppCompatActivity() {
 
     private fun onPlayerClick(player: Player){
         gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(player))
+        currentRoleIncrement()
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
 
@@ -111,12 +118,13 @@ class GameActivity: AppCompatActivity() {
         journalistSteps.add(player)
         if(journalistSteps.size == 2){
             gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), journalistSteps)
+            currentRoleIncrement()
             nextRoundFade(rolesQueue[currentRoleIndex])
-
         }
     }
 
     private fun startGame(){
+        currentRoleIncrement()
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
 
@@ -132,5 +140,9 @@ class GameActivity: AppCompatActivity() {
         animator.fillAfter = true
         animator.duration = 2000
         view.startAnimation(animator)
+    }
+    private fun currentRoleIncrement(){
+        if(currentRoleIndex < Roles.ROLES_COUNT-1) currentRoleIndex++
+        else isEndOfNight = true
     }
 }
