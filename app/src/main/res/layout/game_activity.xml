@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:divider="@drawable/roles_listview_divider_shape"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
             android:showDividers="middle">
 
             <Button

@@ -1,6 +1,7 @@
 package com.example.mafia.activities
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -14,11 +15,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginLeft
 import com.example.mafia.GameData
 import com.example.mafia.Player
 import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
+import org.w3c.dom.Text
+import java.util.logging.StreamHandler
 
 class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
@@ -41,14 +45,12 @@ class GameActivity: AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun nextRoundFade(role: Role){
-        Log.d("TAG", "nextRoundFade: ${currentRoleIndex}")
         //делает переход на следующий раунд, вызывать в последнююю очередь
         val fadeView = findViewById<ConstraintLayout>(R.id.fadeConstraint)
         transparentToBlackAnim(fadeView)
 
         if (isEndOfNight){
             findViewById<TextView>(R.id.fadeText).text = "Город просыпается"
-            Log.d("TAG", "nextRoundFade: ${gameData!!.sumUpNight()}")
         }
         else findViewById<TextView>(R.id.fadeText).text = "Просыпается ${role.name}"
 
@@ -58,7 +60,7 @@ class GameActivity: AppCompatActivity() {
 
             if(isEndOfNight){
                 findViewById<TextView>(R.id.gameToolbarText).text = "Итоги"
-                Log.d("TAG", "nextRoundFade: ${gameData!!.steps}")
+                addEndNightResultText(gameData!!.sumUpNight())
             }
             else{
                 findViewById<TextView>(R.id.gameToolbarText).text = role.name
@@ -106,6 +108,16 @@ class GameActivity: AppCompatActivity() {
         playerPlank.addView(playerName, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 
         linearScroll.addView(playerPlank, 0, LayoutParams(LayoutParams.MATCH_PARENT, 200))
+    }
+
+    private fun addEndNightResultText(result: String){
+        val resultText = TextView(this)
+        resultText.text = result
+        resultText.setTextAppearance(R.style.NightResultText)
+
+        val linearLayout = findViewById<LinearLayout>(R.id.gamePlayersList)
+        linearLayout.addView(resultText)
+
     }
 
     private fun onPlayerClick(player: Player){
