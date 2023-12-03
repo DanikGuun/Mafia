@@ -1,7 +1,6 @@
 package com.example.mafia.activities
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -15,18 +14,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginLeft
 import com.example.mafia.GameData
 import com.example.mafia.Player
 import com.example.mafia.R
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
-import org.w3c.dom.Text
-import java.util.logging.StreamHandler
 
 class GameActivity: AppCompatActivity() {
     private var gameData: GameData? = null
-    private val rolesQueue = Roles.getRolesQueue()
+    private var rolesQueue = ArrayList<Role>()
     private var currentRoleIndex = -1
     private val journalistSteps = ArrayList<Player>()
     private var isEndOfNight = false
@@ -41,6 +37,7 @@ class GameActivity: AppCompatActivity() {
         generatePlayersWithExcluded(null, false)
         findViewById<TextView>(R.id.gameToolbarText).text = "знакомство"
         findViewById<Button>(R.id.gameStartButton).setOnClickListener{ startGame() }
+        rolesQueue = getRolesQueue()
     }
 
     @SuppressLint("SetTextI18n")
@@ -115,9 +112,18 @@ class GameActivity: AppCompatActivity() {
         resultText.text = result
         resultText.setTextAppearance(R.style.NightResultText)
 
+        val nextNightButton = Button(this)
+        val id = 789
+        nextNightButton.id = id
+        nextNightButton.setBackgroundResource(R.drawable.button_shape)
+        nextNightButton.text = "Следующая ночь"
+        nextNightButton.setOnClickListener { nextNight() }
+        
         val linearLayout = findViewById<LinearLayout>(R.id.gamePlayersList)
         linearLayout.addView(resultText)
+        linearLayout.addView(nextNightButton)
 
+        Log.d("TAG", "addEndNightResultText: ${gameData!!.steps}")
     }
 
     private fun onPlayerClick(player: Player){
@@ -140,6 +146,31 @@ class GameActivity: AppCompatActivity() {
         nextRoundFade(rolesQueue[currentRoleIndex])
     }
 
+    private fun nextNight(){
+        transparentToBlackAnim(findViewById<ConstraintLayout>(R.id.fadeConstraint))
+
+        currentRoleIndex = -1
+        isEndOfNight = false
+        journalistSteps.clear()
+        gameData!!.steps.clear()
+
+        rolesQueue = getRolesQueue()
+
+        android.os.Handler(Looper.getMainLooper()).postDelayed( {
+            val id = 789
+            val button = findViewById<Button>(id)
+            currentRoleIncrement()
+            button.setOnClickListener { nextRoundFade(rolesQueue[currentRoleIndex]) }
+
+            blackToTransparentAnim(findViewById<ConstraintLayout>(R.id.fadeConstraint))
+            findViewById<LinearLayout>(R.id.gamePlayersList).removeAllViews()
+            generatePlayersWithExcluded(null, false)
+            findViewById<TextView>(R.id.gameToolbarText).text = "Живые"
+
+            findViewById<LinearLayout>(R.id.gamePlayersList).addView(button)
+        }, 2)
+    }
+
     private fun blackToTransparentAnim(view: View){
         val animator = AlphaAnimation(1f, 0f)
         animator.fillAfter = true
@@ -153,8 +184,21 @@ class GameActivity: AppCompatActivity() {
         animator.duration = 2000
         view.startAnimation(animator)
     }
+
+    private fun getRolesQueue(): ArrayList<Role>{ //получает очередь из тех ролей, которые есть у игроков
+        val existsRoles = ArrayList<Role>() //роли которые есть среди игроков
+        for(i in gameData!!.playersList) existsRoles.add(i.role)
+
+        val rolesQueue = ArrayList<Role>()
+
+        for(role in Roles.getRolesQueue()){
+            if(role in existsRoles) rolesQueue.add(role)
+        }
+        return rolesQueue
+    }
+
     private fun currentRoleIncrement(){
-        if(currentRoleIndex < Roles.ROLES_COUNT-1) currentRoleIndex++
+        if(currentRoleIndex < rolesQueue.size-1) currentRoleIndex++
         else isEndOfNight = true
     }
 }

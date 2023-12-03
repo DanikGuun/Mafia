@@ -32,7 +32,6 @@ class GameData(val playersList: ArrayList<Player>): Serializable {
     }
 
     fun sumUpNight(): String{
-        Log.d("TAG", "sumUpNight: $steps")
         val str = StringBuilder()
         for(step in steps.keys){
             str.append(steps[step]!![0][0].role.action(this) + "\n\n")
