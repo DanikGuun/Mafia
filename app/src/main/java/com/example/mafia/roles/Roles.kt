@@ -53,7 +53,7 @@ object Roles: Serializable {
             if(gameData.steps[Sherif()]!![1][0].role.isEvil == true){
                 return "У комиссара правильные догадки (${gameData.steps[Sherif()]!![1][0].name})"
             }
-            return "У комиссара правильные догадки (${gameData.steps[Sherif()]!![1][0].name})"
+            return "У комиссара неправильные догадки (${gameData.steps[Sherif()]!![1][0].name})"
         }
     }
     class Prostitute: Role(), Serializable{
