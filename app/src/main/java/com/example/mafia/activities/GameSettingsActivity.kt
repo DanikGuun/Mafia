@@ -20,7 +20,10 @@ import com.example.mafia.GameData
 import com.example.mafia.roles.Role
 import com.example.mafia.roles.Roles
 import org.w3c.dom.Text
+import java.lang.Error
+import java.lang.Exception
 
+@Suppress("DEPRECATION")
 class GameSettingsActivity: AppCompatActivity() {
     private var namesCounter = 0
         get() = field
@@ -37,9 +40,16 @@ class GameSettingsActivity: AppCompatActivity() {
     private val players = ArrayList<String>()
     private val roles = ArrayList<Role>()
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_start_activity)
+        try{
+            for(player in intent.getSerializableExtra("players") as ArrayList<String>){
+                players.add(player)
+            }
+        }
+        catch (e: Exception){  }
         findViewById<Button>(R.id.player_add_button).setOnClickListener {onAddPlayerButton()}
         findViewById<Button>(R.id.start_button).setOnClickListener {onPlayButton()}
         generateRoles()

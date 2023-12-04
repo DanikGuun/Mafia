@@ -11,4 +11,5 @@
     <string name="cancel">отмена</string>
     <string name="count">кол-во</string>
     <string name="start">начать</string>
+    <string name="new_game">новая игра</string>
 </resources>

@@ -9,7 +9,6 @@ class GameData(val playersList: ArrayList<Player>): Serializable {
     constructor() : this(ArrayList<Player>())
 
     val steps = HashMap<Role, ArrayList<ArrayList<Player>>>() //по роли определяется кто ходил, далее вложенный массив, где 0 - кто ходил, 1 - на кого ходили
-
     fun distributeRoles(names: ArrayList<String>, roles: ArrayList<Role>){
         val namesLength = names.lastIndex
         for(i in 0..namesLength){
@@ -32,10 +31,25 @@ class GameData(val playersList: ArrayList<Player>): Serializable {
     }
 
     fun sumUpNight(): String{
+
         val str = StringBuilder()
         for(step in steps.keys){
             str.append(steps[step]!![0][0].role.action(this) + "\n\n")
         }
         return str.toString()
+    }
+
+    fun isEndOfGame(): String{
+        var gameResult = ""
+        var cnt = 0 //"счётчик зла"
+        for(player in playersList){
+            when (player.role.isEvil){
+               true -> cnt--
+                false -> cnt++
+            }
+        }
+        if(cnt <= 0) gameResult = "победила мафия"//если злых столько сколько и добрых или меньше
+        else if(cnt == playersList.size) gameResult = "Победили мирные"
+        return gameResult
     }
 }

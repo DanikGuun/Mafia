@@ -4,6 +4,7 @@ import com.example.mafia.GameData
 import com.example.mafia.Player
 import com.example.mafia.R
 import java.io.Serializable
+import java.lang.NullPointerException
 
 object Roles: Serializable {
     const val ROLES_COUNT = 6
@@ -29,8 +30,13 @@ object Roles: Serializable {
         override val description = "Цель - убить всех мирных"
         override val icon = R.drawable.mafia
         override fun action(gameData: GameData):String {
-            if(gameData.steps[Mafia()]!![1][0] != gameData.steps[Doctor()]!![1][0]){
-                gameData.playersList.remove(gameData.steps[Mafia()]!![1][0]);
+            try {
+                if (gameData.steps[Mafia()]!![1][0] != gameData.steps[Doctor()]!![1][0]) {
+                    gameData.playersList.remove(gameData.steps[Mafia()]!![1][0])
+                }
+            }
+            catch (e: NullPointerException){
+                gameData.playersList.remove(gameData.steps[Mafia()]!![1][0])
             }
             return "Мафия  убила ${gameData.steps[Mafia()]!![1][0].name}"
         }
@@ -71,7 +77,12 @@ object Roles: Serializable {
         override val description = "Убивает"
         override val icon = R.drawable.avenger
         override fun action(gameData: GameData): String {
-            if(gameData.steps[Avenger()]!![1][0] != gameData.steps[Doctor()]!![1][0]){
+            try {
+                if (gameData.steps[Avenger()]!![1][0] != gameData.steps[Doctor()]!![1][0]) {
+                    gameData.playersList.remove(gameData.steps[Avenger()]!![1][0])
+                }
+            }
+            catch (e: NullPointerException){
                 gameData.playersList.remove(gameData.steps[Avenger()]!![1][0])
             }
             return "Мститель убил ${gameData.steps[Avenger()]!![1][0].name}"
