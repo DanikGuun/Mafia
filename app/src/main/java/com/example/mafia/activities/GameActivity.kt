@@ -46,6 +46,11 @@ class GameActivity: AppCompatActivity() {
     }
 
     private fun onPlayerClick(player: Player){
+        if(isEndOfNight){
+            gameData!!.playersList.remove(player)
+            nextNight()
+            return
+        }
         gameData!!.steps[rolesQueue[currentRoleIndex]] = arrayListOf(gameData!!.getPlayersWithRole(rolesQueue[currentRoleIndex]), arrayListOf(player))
         currentRoleIncrement()
         nextRoundFade(rolesQueue[currentRoleIndex])
@@ -76,8 +81,10 @@ class GameActivity: AppCompatActivity() {
             findViewById<LinearLayout>(R.id.gamePlayersList).removeAllViews()
 
             if(isEndOfNight){
-                findViewById<TextView>(R.id.gameToolbarText).text = "Итоги"
-                addEndNightResultText(gameData!!.sumUpNight())
+                findViewById<TextView>(R.id.gameToolbarText).text = "Голосование"
+                val result = gameData!!.sumUpNight()
+                generatePlayersWithExcluded(null)
+                addEndNightResultText(result)
                 if(gameData!!.isEndOfGame() != ""){
                     val alert = AlertDialog.Builder(this)
                     val alertLayout = layoutInflater.inflate(R.layout.end_game_alert, null)
@@ -144,11 +151,11 @@ class GameActivity: AppCompatActivity() {
         val id = 789
         nextNightButton.id = id
         nextNightButton.setBackgroundResource(R.drawable.button_shape)
-        nextNightButton.text = "Следующая ночь"
+        nextNightButton.text = "Пропустить"
         nextNightButton.setOnClickListener { nextNight() }
 
         val linearLayout = findViewById<LinearLayout>(R.id.gamePlayersList)
-        linearLayout.addView(resultText)
+        linearLayout.addView(resultText, 0)
         linearLayout.addView(nextNightButton)
     }
 
